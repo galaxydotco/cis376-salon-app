@@ -10,6 +10,8 @@ TODO:
 
 Known Issues:
 2/3: header gradient is moving (fixed)
+2/3: nav bar not functional
+2/3: light mode color issue
 
 
 Sources:
