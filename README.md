@@ -15,4 +15,7 @@ Known Issues:
 
 
 Sources:
-Source - https://stackoverflow.com/a/13427256 - Retrieved 2026-02-03 (for font drop shadow)
+https://stackoverflow.com/a/13427256 - Retrieved 2026-02-03 
+- for font drop shadow
+https://www.w3schools.com/css/css_navbar.asp - Retrieved 2026-02-03
+- for everything nav bar related
