@@ -1,3 +1,17 @@
 body {
-    background-color: rgb(220, 172, 220);
+    background: #1e5799; /* fallback for old browsers */
+    background: linear-gradient(-45deg, #9d4da2 0%, #ad57af 50%, #af65b9 51%, #c57cd7 100%);
+    margin: 0;
+    padding: 0;
+}
+
+#welcome-header {
+    color: white;
+    text-align: center;
+    font-family: Georgia;
+    font-weight: 100;
+    font-size: 50px;
+    width: 70%;
+    padding: 50px 0;
+
 }
