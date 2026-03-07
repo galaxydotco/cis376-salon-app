@@ -25,3 +25,53 @@ window.addEventListener("scroll", () => {
     // update last scroll position
     lastScrollY = window.scrollY;
 });
+
+// search (in nav bar) logic 
+function handleSearch() {
+    const query = document.getElementById("site-search").value.toLowerCase();
+    alert("Searching for: " + query + "\n(under construction :> )");
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    const modal = document.getElementById("login-modal");
+    const closeBtn = document.querySelector(".close-btn");
+    const loginTriggers = document.querySelectorAll(".trigger-login");
+    
+    // Toggle Elements
+    const loginSection = document.getElementById("login-section");
+    const signupSection = document.getElementById("signup-section");
+    const toSignupLink = document.getElementById("to-signup");
+    const toLoginLink = document.getElementById("to-login");
+
+    // 1. Open Modal Logic
+    loginTriggers.forEach(btn => {
+        btn.addEventListener("click", (e) => {
+            e.preventDefault();
+            modal.style.display = "flex";
+        });
+    });
+
+    // 2. Close Modal Logic
+    closeBtn.addEventListener("click", () => {
+        modal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target === modal) {
+            modal.style.display = "none";
+        }
+    });
+
+    // 3. Toggle Logic (Now inside the DOMContentLoaded block!)
+    toSignupLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        loginSection.style.display = "none";
+        signupSection.style.display = "block";
+    });
+
+    toLoginLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        signupSection.style.display = "none";
+        loginSection.style.display = "block";
+    });
+});

@@ -7,10 +7,11 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/style.css"> 
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Alan+Sans:wght@300..900&display=swap" rel="stylesheet">
@@ -18,17 +19,24 @@
 
     <title>Barbering and Beauty by Kayla Latrell</title>
 </head>
+
 <body>
     <nav id="navbar">
         <!-- logo and name -->
         <div class="nav-logo">Barbering and Beauty</div>
 
+        <!-- search bar -->
+        <div class="search-container">
+            <input type="text" id="site-search" placeholder="Search services...">
+            <button type="button" onclick="handleSearch()">🔍</button>
+        </div>
+
         <!-- nav links -->
         <ul class="nav-links">
             <li><a href="index.html">About Us</a></li>
             <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="profile.html">Profile</a></li>
-            <li><a href="booknow.html" class="cta">Book Now</a></li> <!-- call to action -->
+            <li><a href="#" class="trigger-login">Profile</a></li>
+            <li><a href="#" class="cta trigger-login">Book Now</a></li>
         </ul>
     </nav>
 
@@ -38,7 +46,7 @@
     </header>
 
     <main>
-        <!-- junk so i can scroll -->
+        <!-- about text so i can scroll (show off the nav shrink) -->
         <section class="content-section">
             <h2>About the Salon</h2>
             <p>
@@ -53,15 +61,113 @@
 
         <section class="content-section">
             <h2>Our Services</h2>
-            <p>
-                Haircuts, beard trims, coloring, styling, and special event looks.
-                Booking is easy and customizable to fit your schedule.
-            </p>
+            <p>Click a service to see full details and estimated times.</p>
 
-            <img src="https://placehold.co/600x400?text=Hair+Services" alt="Services placeholder">
+            <div class="services-container">
+                <div class="category-group">
+                    <h3>Cuts & Styling</h3>
+                    <div class="services-grid">
+                        <details class="service-card">
+                            <summary>
+                                <div class="summary-header">
+                                    <strong>Standard Haircut</strong>
+                                    <span>$20</span>
+                                </div>
+                            </summary>
+                            <div class="service-details">
+                                <p>Time: 30 minutes</p>
+                                <p>A professional cut tailored to your face shape and hair type.</p>
+                                <img src="https://placehold.co/200x150?text=Haircut+Example" alt="Haircut">
+                            </div>
+                        </details>
+
+                        <details class="service-card">
+                            <summary>
+                                <div class="summary-header">
+                                    <strong>Faded Haircut</strong>
+                                    <span>$25</span>
+                                </div>
+                            </summary>
+                            <div class="service-details">
+                                <p>Time: 30 minutes</p>
+                                <p>Precision skin fades and taper fades.</p>
+                            </div>
+                        </details>
+
+                    </div>
+                </div>
+
+                <div class="category-group">
+                    <h3>Color & Chemical</h3>
+                    <div class="services-grid">
+                        <details class="service-card">
+                            <summary>
+                                <div class="summary-header">
+                                    <strong>All-Over Color</strong>
+                                    <span>Starts $100</span>
+                                </div>
+                            </summary>
+                            <div class="service-details">
+                                <p>Time: 2 hours</p>
+                                <p>Full root-to-tip color transformation.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+
+                <div class="category-group">
+                    <h3>Waxing & Grooming</h3>
+                    <div class="services-grid">
+                        <details class="service-card">
+                            <summary>
+                                <div class="summary-header">
+                                    <strong>Eyebrow Wax</strong>
+                                    <span>$10</span>
+                                </div>
+                            </summary>
+                            <div class="service-details">
+                                <p>Time: 20 minutes</p>
+                                <p>Shape and clean up for a polished look.</p>
+                            </div>
+                        </details>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
+    <li><a href="#" id="login-btn">Login</a></li>
+
+    <!-- login popup -->
+    <div id="login-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+
+            <div id="login-section">
+                <h2 id="modal-title">Welcome Back</h2>
+                <form id="login-form">
+                    <input type="text" placeholder="Username" required>
+                    <input type="password" placeholder="Password" required>
+                    <button type="submit" class="cta">Sign In</button>
+                </form>
+                <p>Don't have an account? <a href="#" id="to-signup">Sign up</a></p>
+            </div>
+
+            <div id="signup-section" style="display: none;">
+                <h2>Create Account</h2>
+                <form id="signup-form">
+                    <input type="text" placeholder="Full Name" required>
+                    <input type="email" placeholder="Email Address" required>
+                    <input type="text" placeholder="Create Username" required>
+                    <input type="password" placeholder="Create Password" required>
+                    <button type="submit" class="cta">Register</button>
+                </form>
+                <p>Already have an account? <a href="#" id="to-login">Login</a></p>
+            </div>
+        </div>
+    </div>
+
     <script src="scripts/script.js"></script>
 </body>
+
 </html>
