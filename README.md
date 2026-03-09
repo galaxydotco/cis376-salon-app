@@ -1,5 +1,5 @@
 # cis376-salon-app
-CIS 376 Project 1: Salon Booking App
+CIS 376 Project 1: Salon Booking App <br>
 Author: Jasmine Morgan using VSCode IDE and further sources linked <br>
 This project is a Github Pages site where you may log in/out, book an appointment, and view portfolios for a salon. <br> <br>
 Github Repository - https://github.com/galaxydotco/cis376-salon-app <br>
