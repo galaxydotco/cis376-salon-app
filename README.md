@@ -42,6 +42,6 @@ also lots a youtube videos :>
 Inspirations: <br>
 - https://codepen.io/josetxu/pen/OJrOjYE <br>
 - ![salon1](https://github.com/user-attachments/assets/7a882cf8-6d58-48d6-8c28-6b32ab39761e) <br>
-- https://www.google.com/imgres?q=salon%20website&imgurl=https%3A%2F%2Fres2.weblium.site%2Fsite%2F5cef9abcf79e950024274b3c%2Fpreview1600_1000&imgrefurl=https%3A%2F%2Fweblium.com%2Ftemplates%2Fhair-salon-website-design-37&docid=X1NvcwdRHGUqFM&tbnid=R29aryxEtH-E-M&vet=12ahUKEwiVy-Xw_5GTAxUDAHkGHahRNgUQnPAOegQIHBAB..i&w=1600&h=1000&hcb=2&ved=2ahUKEwiVy-Xw_5GTAxUDAHkGHahRNgUQnPAOegQIHBAB <br>
-- https://www.google.com/url?sa=t&source=web&rct=j&url=https%3A%2F%2Fmuffingroup.com%2Fblog%2Fhair-salon-websites%2F&ved=0CBYQjRxqFwoTCNitrPH_kZMDFQAAAAAdAAAAABBx&opi=89978449 <br>
+- ![beautysalon](https://github.com/user-attachments/assets/00c6f788-5f28-4d85-a7a9-0083d6f98acc) <br>
+- ![images2](https://github.com/user-attachments/assets/7f64ee68-bd55-473d-b8f8-bcfb13aed9c0) <br>
 - https://github.com/galaxydotco/ciSalon - this is my previous site which I created a similar site for her using Github pages, yet it is entirely not funcitonal.
