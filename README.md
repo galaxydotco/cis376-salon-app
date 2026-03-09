@@ -16,9 +16,10 @@ In attempt to gain bonus points, the search will make everything not applicable 
 <hr>
 
 TODO:
-- add files that the nav bar links to
-- make login funcitonal
-- add a booking function
+- add files that the nav bar links to.
+- add controls to log in (incorrect password, forgot password, 2FA).
+- add a booking function.
+- Add further details regarding services offered, open hours, and location.
 
 <hr>
 
