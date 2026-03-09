@@ -5,26 +5,136 @@
     Description: Scripts for Barbering and Beauty by Kayla Latrell homepage.
 */
 
-// get the nav bar element
-const navbar = document.getElementById("navbar");
+/**
+ * 1. APP STATE & CONSTANTS
+ */
+const SESSION_KEY = "user_session";
+const MOCK_PASSWORD = "password123"; 
 
 // track last scroll position
 let lastScrollY = window.scrollY;
 
-window.addEventListener("scroll", () => {
+/**
+ * 2. INITIALIZATION
+ */
+document.addEventListener("DOMContentLoaded", () => {
+    console.log("--- System: Salon App Initializing ---");
+    
+    // check if someone is already logged in (session storage usage)
+    checkSession();
 
-    // scroll down > shrink nav
+    // attach all our event listeners + named functions
+    initEventListeners();
+    
+    console.log("--- System: Initialization Complete ---");
+});
+
+function initEventListeners() {
+    const loginForm = document.getElementById("login-form");
+    const signupForm = document.getElementById("signup-form");
+    const searchInput = document.getElementById("site-search");
+    const menuToggle = document.getElementById('mobile-menu');
+
+    // scroll down > shrink nav logic
+    window.addEventListener("scroll", handleNavbarShrink);
+
+    // login/signup form listeners
+    loginForm.addEventListener("submit", handleLogin);
+    signupForm.addEventListener("submit", handleSignup);
+
+    // search listener
+    searchInput.addEventListener("input", handleSearch);
+
+    // listen for the enter key inside the search input
+    searchInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") {
+            e.preventDefault(); // prevent page refresh if inside a form
+            handleSearch();     // run in the existing search function
+        }
+    });
+
+    // hamburger style :> toggle
+    menuToggle.addEventListener('click', toggleMobileMenu);
+
+    // Logic for opening/closing the login popup
+    setupModalLogic();
+}
+
+/**
+ * 3. CORE FUNCTIONS
+ */
+// shrink nav on scroll logic
+function handleNavbarShrink() {
+    const navbar = document.getElementById("navbar"); // get the nav bar element
+    
     if (window.scrollY > lastScrollY) {
+        // scroll down > shrink nav
         navbar.classList.add("shrink");
-    }
-    // scroll up > expand nav
-    else {
+    } else {
+        // scroll up > expand nav
         navbar.classList.remove("shrink");
     }
-
     // update last scroll position
     lastScrollY = window.scrollY;
-});
+}
+
+// password check implemented in front-end logic
+function handleLogin(event) {
+    event.preventDefault();
+    const form = event.target;
+    const username = form.querySelector('input[type="text"]').value;
+    const password = form.querySelector('input[type="password"]').value;
+
+    if (password === MOCK_PASSWORD) {
+        // password result clearly logged in console (success feedback)
+        console.log(`%c [AUTH SUCCESS] User: ${username}`, "color: #00ff00; font-weight: bold;");
+        
+        // session storage usage: save user data so they stay logged in
+        const userData = { username: username, loginTime: new Date().toLocaleTimeString() };
+        sessionStorage.setItem(SESSION_KEY, JSON.stringify(userData));
+
+        // DOM mutation updates ui based on state/data
+        updateUIForLogin(userData);
+        closeModal();
+    } else {
+        // password result clearly logged in console (failure feedback)
+        console.warn("[AUTH FAILED] Incorrect password attempt.");
+        alert("Incorrect password! Try: password123");
+    }
+}
+
+// ability to clear/reset session data
+function handleLogout() {
+    console.log("%c [SESSION] Clearing session data...", "color: #ff9900;");
+    sessionStorage.removeItem(SESSION_KEY);
+    window.location.reload(); // reset the ui to original state
+}
+
+function checkSession() {
+    const savedUser = sessionStorage.getItem(SESSION_KEY);
+    if (savedUser) {
+        const user = JSON.parse(savedUser);
+        console.log(`[SESSION] Active session found for: ${user.username}`);
+        updateUIForLogin(user);
+    }
+}
+
+function updateUIForLogin(user) {
+    // DOM mutation: changes "book now" into "log out" and shows username
+    const profileLink = document.querySelector('.nav-links .trigger-login:first-child');
+    const bookBtn = document.querySelector('.cta.trigger-login');
+
+    if (profileLink) profileLink.innerText = `Hi, ${user.username}`;
+    
+    if (bookBtn) {
+        bookBtn.innerText = "Log Out";
+        bookBtn.classList.add("logout-active");
+        bookBtn.onclick = (e) => {
+            e.preventDefault();
+            handleLogout();
+        };
+    }
+}
 
 // search (in nav bar) logic 
 function handleSearch() {
@@ -32,14 +142,12 @@ function handleSearch() {
     const serviceCards = document.querySelectorAll(".service-card");
     const categories = document.querySelectorAll(".category-group");
     const noResultsMsg = document.getElementById("no-results");
-
+    
     let visibleCount = 0; // track how many matches found
 
     serviceCards.forEach(card => {
-        const serviceTitle = card.querySelector("strong").innerText.toLowerCase();
-        const serviceDescription = card.querySelector(".service-details").innerText.toLowerCase();
-
-        if (serviceTitle.includes(query) || serviceDescription.includes(query)) {
+        const text = card.innerText.toLowerCase();
+        if (text.includes(query)) {
             card.style.display = "block";
             visibleCount++; // found match
         } else {
@@ -54,76 +162,61 @@ function handleSearch() {
     });
 
     // toggle the "no results" message
-    if (visibleCount === 0) {
-        noResultsMsg.style.display = "block";
-    } else {
-        noResultsMsg.style.display = "none";
-    }
+    noResultsMsg.style.display = (visibleCount === 0) ? "block" : "none";
 }
 
-// search listener
-document.getElementById("site-search").addEventListener("input", handleSearch);
-
-document.addEventListener("DOMContentLoaded", () => {
+/**
+ * 4. UI HELPERS
+ */
+function setupModalLogic() {
     const modal = document.getElementById("login-modal");
     const closeBtn = document.querySelector(".close-btn");
-    const loginTriggers = document.querySelectorAll(".trigger-login");
-
-    const searchInput = document.getElementById("site-search");
-
-    // listen for the enter key inside the search input
-    searchInput.addEventListener("keydown", (event) => {
-        if (event.key === "Enter") {
-            event.preventDefault(); // prevent page refresh if inside a form
-            handleSearch();         // run in the existing search function
-        }
-    });
-
-    // toggle Elements
-    const loginSection = document.getElementById("login-section");
-    const signupSection = document.getElementById("signup-section");
-    const toSignupLink = document.getElementById("to-signup");
-    const toLoginLink = document.getElementById("to-login");
+    const triggers = document.querySelectorAll(".trigger-login");
 
     // open Modal Logic
-    loginTriggers.forEach(btn => {
-        btn.addEventListener("click", (e) => {
-            e.preventDefault();
-            modal.style.display = "flex";
+    triggers.forEach(t => {
+        t.addEventListener("click", (e) => {
+            if (!t.classList.contains("logout-active")) {
+                e.preventDefault();
+                modal.style.display = "flex";
+            }
         });
     });
 
     // close Modal Logic
-    closeBtn.addEventListener("click", () => {
-        modal.style.display = "none";
-    });
+    closeBtn.onclick = closeModal;
+    window.onclick = (e) => { if (e.target === modal) closeModal(); };
 
-    window.addEventListener("click", (e) => {
-        if (e.target === modal) {
-            modal.style.display = "none";
-        }
-    });
-
-    // toggle Logic
-    toSignupLink.addEventListener("click", (e) => {
+    // toggle Logic between Signup and Login
+    document.getElementById("to-signup").onclick = (e) => {
         e.preventDefault();
-        loginSection.style.display = "none";
-        signupSection.style.display = "block";
-    });
-
-    toLoginLink.addEventListener("click", (e) => {
+        document.getElementById("login-section").style.display = "none";
+        document.getElementById("signup-section").style.display = "block";
+    };
+    document.getElementById("to-login").onclick = (e) => {
         e.preventDefault();
-        signupSection.style.display = "none";
-        loginSection.style.display = "block";
-    });
+        document.getElementById("signup-section").style.display = "none";
+        document.getElementById("login-section").style.display = "block";
+    };
+}
 
-    const menuToggle = document.getElementById('mobile-menu');
-    const navLinks = document.querySelector('.nav-links');
+function closeModal() {
+    document.getElementById("login-modal").style.display = "none";
+}
 
-    menuToggle.addEventListener('click', () => {
-        navLinks.classList.toggle('active');
+function toggleMobileMenu() {
+    // show links when 'active' class is added via JS 
+    document.querySelector('.nav-links').classList.toggle('active');
+    // optional: animate hamburger to an 'X'
+    document.getElementById('mobile-menu').classList.toggle('is-active');
+    console.log("[UI] Mobile menu toggled.");
+}
 
-        // Optional: Animate hamburger to an 'X'
-        menuToggle.classList.toggle('is-active');
-    });
-});
+function handleSignup(e) {
+    e.preventDefault();
+    console.log("State Change: User signed up.");
+    alert("Account created! Now login with password123");
+    document.getElementById("to-login").click(); // toggle back to login
+}
+
+// taking a java class GREATLY helped my understanding in js
