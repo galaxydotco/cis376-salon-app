@@ -407,3 +407,8 @@ summary::-webkit-details-marker {
 @media (min-min-width: 769px) {
     .menu-toggle { display: none; }
 }
+
+#no-results h3 {
+    color: #8b3ca1;
+    font-family: "Alan Sans", sans-serif;
+}

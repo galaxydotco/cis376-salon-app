@@ -31,27 +31,53 @@ function handleSearch() {
     const query = document.getElementById("site-search").value.toLowerCase();
     const serviceCards = document.querySelectorAll(".service-card");
     const categories = document.querySelectorAll(".category-group");
+    const noResultsMsg = document.getElementById("no-results");
+
+    let visibleCount = 0; // track how many matches found
 
     serviceCards.forEach(card => {
-        // get text summary
         const serviceTitle = card.querySelector("strong").innerText.toLowerCase();
         const serviceDescription = card.querySelector(".service-details").innerText.toLowerCase();
 
         if (serviceTitle.includes(query) || serviceDescription.includes(query)) {
-            card.style.display = "block"; // show match
+            card.style.display = "block";
+            visibleCount++; // found match
         } else {
-            card.style.display = "none";  // hide non-match
+            card.style.display = "none";
         }
     });
+
+    // hide/show category headings
+    categories.forEach(category => {
+        const visibleInCat = category.querySelectorAll('.service-card[style="display: block;"], .service-card:not([style])');
+        category.style.display = visibleInCat.length > 0 ? "block" : "none";
+    });
+
+    // toggle the "no results" message
+    if (visibleCount === 0) {
+        noResultsMsg.style.display = "block";
+    } else {
+        noResultsMsg.style.display = "none";
+    }
 }
 
-// real-time search listener
+// search listener
 document.getElementById("site-search").addEventListener("input", handleSearch);
 
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("login-modal");
     const closeBtn = document.querySelector(".close-btn");
     const loginTriggers = document.querySelectorAll(".trigger-login");
+
+    const searchInput = document.getElementById("site-search");
+
+    // listen for the enter key inside the search input
+    searchInput.addEventListener("keydown", (event) => {
+        if (event.key === "Enter") {
+            event.preventDefault(); // prevent page refresh if inside a form
+            handleSearch();         // run in the existing search function
+        }
+    });
 
     // toggle Elements
     const loginSection = document.getElementById("login-section");
