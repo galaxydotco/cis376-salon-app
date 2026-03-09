@@ -1,7 +1,7 @@
 /*
     CIS 376 - 01 ; Dr. Cumbie
     Jasmine Morgan
-    1/29/2026 - (UPDATE BEFORE SUBMISSION)
+    1/29/2026 - 3/9/2026
     Description: Scripts for Barbering and Beauty by Kayla Latrell homepage.
 */
 
@@ -29,8 +29,24 @@ window.addEventListener("scroll", () => {
 // search (in nav bar) logic 
 function handleSearch() {
     const query = document.getElementById("site-search").value.toLowerCase();
-    alert("Searching for: " + query + "\n(under construction :> )");
+    const serviceCards = document.querySelectorAll(".service-card");
+    const categories = document.querySelectorAll(".category-group");
+
+    serviceCards.forEach(card => {
+        // get text summary
+        const serviceTitle = card.querySelector("strong").innerText.toLowerCase();
+        const serviceDescription = card.querySelector(".service-details").innerText.toLowerCase();
+
+        if (serviceTitle.includes(query) || serviceDescription.includes(query)) {
+            card.style.display = "block"; // show match
+        } else {
+            card.style.display = "none";  // hide non-match
+        }
+    });
 }
+
+// real-time search listener
+document.getElementById("site-search").addEventListener("input", handleSearch);
 
 document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("login-modal");
