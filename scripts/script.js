@@ -52,14 +52,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const modal = document.getElementById("login-modal");
     const closeBtn = document.querySelector(".close-btn");
     const loginTriggers = document.querySelectorAll(".trigger-login");
-    
-    // Toggle Elements
+
+    // toggle Elements
     const loginSection = document.getElementById("login-section");
     const signupSection = document.getElementById("signup-section");
     const toSignupLink = document.getElementById("to-signup");
     const toLoginLink = document.getElementById("to-login");
 
-    // 1. Open Modal Logic
+    // open Modal Logic
     loginTriggers.forEach(btn => {
         btn.addEventListener("click", (e) => {
             e.preventDefault();
@@ -67,7 +67,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     });
 
-    // 2. Close Modal Logic
+    // close Modal Logic
     closeBtn.addEventListener("click", () => {
         modal.style.display = "none";
     });
@@ -78,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     });
 
-    // 3. Toggle Logic (Now inside the DOMContentLoaded block!)
+    // toggle Logic
     toSignupLink.addEventListener("click", (e) => {
         e.preventDefault();
         loginSection.style.display = "none";
@@ -89,5 +89,15 @@ document.addEventListener("DOMContentLoaded", () => {
         e.preventDefault();
         signupSection.style.display = "none";
         loginSection.style.display = "block";
+    });
+
+    const menuToggle = document.getElementById('mobile-menu');
+    const navLinks = document.querySelector('.nav-links');
+
+    menuToggle.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+
+        // Optional: Animate hamburger to an 'X'
+        menuToggle.classList.toggle('is-active');
     });
 });
