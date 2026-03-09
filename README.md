@@ -36,7 +36,7 @@ https://www.geeksforgeeks.org/javascript/search-bar-using-html-css-and-javascrip
 https://developer.mozilla.org/en-US/docs/Web/API/Element/keydown_event - Retrieved 2026-03-01
 - for search bar functionality in JS
 
-also lots a youtube videos :>
+also lots of youtube videos :>
 
 <hr>
 
